@@ -6,7 +6,7 @@ build-backend = "uv_build"
 name = "pyunihan"
 version = "0.0.1"
 authors = [
-  { name="Asher Sandbach"},
+  {name="Asher Sandbach"},
 ]
 description = "Convert Unihan database files to SQLite"
 readme = "README.md"
@@ -16,13 +16,12 @@ dependencies = [
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
-    # "Operating System :: OS Independent",
 ]
 license = "GPL-3.0-or-later"
 license-files = ["COPYING"]
 
 [project.urls]
-# Homepage = "https://github.com/pypa/sampleproject"
+Homepage = "https://github.com/sandbach/pyunihan"
 
 [project.scripts]
 unihan = "pyunihan.main:main"
