@@ -245,6 +245,12 @@ def kIICore_parser(entry):
     ]
 
 
+def kIRG_source_parser(entry):
+    source_name, source_mapping = entry.value.split("-")
+    values = [entry.code, source_name, source_mapping]
+    return [Insertion("IRG_SourceMappingTable", values)]
+
+
 def kKangXi_parser(entry):
     parts = entry.value.split(" ")
     reg = re.compile(r"(\d+)\.(\d\d)(\d)")

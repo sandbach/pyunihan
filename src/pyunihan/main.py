@@ -1,13 +1,4 @@
-# Property types:
-#
-# Basic ( code integer NOT NULL, propertyName text NOT NULL, PRIMARY KEY ( code) )
-# Variant ( code integer NOT NULL, variantCode integer NOT NULL, PRIMARY KEY ( code, variantCode) )
-# Numeric ( code integer NOT NULL, propertyName integer NOT NULL, PRIMARY KEY ( code) )
-# IRG_Source (added to IRG_SourceMappingTable (and IRG_SourceTable?))
-# Complex (specified)
-
-
-# from dataclasses import dataclass
+import pyunihan.parsers
 import bisect
 import re
 import argparse
@@ -20,7 +11,7 @@ import zipfile
 
 import requests
 
-from pyunihan.datatypes import Basic, Numeric, Complex, Entry
+from pyunihan.datatypes import Basic, Numeric, IRG_Source, Complex, Entry
 from pyunihan.utils import usv_to_integer, bisect_index, find_unihan_files
 from pyunihan import properties
 from pyunihan import parsers
@@ -41,18 +32,20 @@ class Database:
         if self.args:
             self.setup_logger()
 
-    def property_category(self, property_name):
+    def property_category(self, property_name, report_unknown=False):
         try:
             return properties.properties[property_name]
         except KeyError:
-            # self.logger.debug("Unknown property: %s", property_name)
+            if report_unknown:
+                self.logger.warning("Unknown property: %s", property_name)
             return Basic()
 
     def create_table_statement(self, table_name):
         # table_name = self.table_name
         reg = re.compile("(.*)Table")
         column_name = reg.match(table_name).group(1)
-        category = self.property_category(column_name)
+        report_unknown = table_name != "utf8Table"
+        category = self.property_category(column_name, report_unknown)
         column_type = "integer" if isinstance(category, Numeric) else "text"
         statement = (
             f"CREATE TABLE {table_name} (code integer NOT NULL, "
@@ -60,7 +53,6 @@ class Database:
             "PRIMARY KEY (code));"
         )
         if isinstance(category, Basic):
-            # print(statement)
             return statement
         if isinstance(category, Complex):
             columns = ", ".join(
@@ -76,7 +68,6 @@ class Database:
                 f"CREATE TABLE {table_name} ( {columns}, "
                 f"PRIMARY KEY ( {primary_key_components} ))"
             )
-            # print(statement)
             return statement
 
     def create_index_statement(self, table_name):
@@ -99,11 +90,12 @@ class Database:
         self.tables.update(
             {"utf8Table": [[code, chr(code)] for code in self.character_codes]}
         )
-        # pass
 
     def insertions(self, entry):
         if isinstance(entry.category, Complex):
             parser = entry.category.parser_function
+        elif isinstance(entry.category, IRG_Source):
+            parser = parsers.kIRG_source_parser
         else:
             parser = parsers.basic_parser
         insertions = parser(entry)
