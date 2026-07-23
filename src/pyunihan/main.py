@@ -219,12 +219,12 @@ class Database:
 
 
 def argument_parser():
-    prog = "pyunihan"
-    parser = argparse.ArgumentParser(prog=prog)
+    project_name = "pyunihan"
+    parser = argparse.ArgumentParser()
     try:
-        data_dir = Path(os.environ["XDG_DATA_HOME"]) / prog
+        data_dir = Path(os.environ["XDG_DATA_HOME"]) / project_name
     except KeyError:
-        data_dir = Path.home() / f".local/share/{prog}"
+        data_dir = Path.home() / f".local/share/{project_name}"
     parser.add_argument("--unihan-zip-path", type=Path, default=data_dir / "Unihan.zip")
     parser.add_argument("--unihan-dir-path", type=Path, default=data_dir / "Unihan")
     parser.add_argument("--database-file", type=Path, default=data_dir / "Unihan.db")
