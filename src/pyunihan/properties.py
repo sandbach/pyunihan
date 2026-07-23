@@ -14,7 +14,13 @@ properties = {
     "kBigFive": Basic(),
     "kCangjie": Basic(),
     "kCantonese": Basic(),
-    "kCCCII": Basic(),
+    "kCCCII": Complex(
+        [
+            Column("code", "integer", primary_key_component=True),
+            Column("mapping", "integer"),
+        ],
+        parsers.hexadecimal_parser,
+    ),
     "kCheungBauer": Complex(
         [
             Column("code", "integer", primary_key_component=True),
@@ -42,8 +48,24 @@ properties = {
         ],
         parsers.kCihaiT_parser,
     ),
-    "kCNS1986": Basic(),
-    "kCNS1992": Basic(),
+    "kCNS1986": Complex(
+        [
+            Column("code", "integer", primary_key_component=True),
+            Column("setNumber", "integer"),
+            Column("rowNumber", "integer"),
+            Column("columnNumber", "integer"),
+        ],
+        parsers.kCNS_parser,
+    ),
+    "kCNS1992": Complex(
+        [
+            Column("code", "integer", primary_key_component=True),
+            Column("setNumber", "integer"),
+            Column("rowNumber", "integer"),
+            Column("columnNumber", "integer"),
+        ],
+        parsers.kCNS_parser,
+    ),
     "kCompatibilityVariant": Complex(
         [
             Column("code", "integer", primary_key_component=True),

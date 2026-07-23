@@ -52,6 +52,22 @@ def page_position_parser(entry):
     return insertions
 
 
+def hexadecimal_parser(entry):
+    mapping = int(entry.value, 16)
+    values = [entry.code, mapping]
+    return [Insertion(entry.table_name, values)]
+
+
+def kCNS_parser(entry):
+    reg = re.compile(r"(\w+)-(\w\w)(\w\w)")
+    match = reg.match(entry.value)
+    set_number = int(match.group(1), 16)
+    row_number = int(match.group(2), 16)
+    column_number = int(match.group(3), 16)
+    values = [entry.code, set_number, row_number, column_number]
+    return [Insertion(entry.table_name, values)]
+
+
 def kAlternateTotalStrokes_parser(entry):
     if entry.value == "-":
         values = [entry.code, None, None]

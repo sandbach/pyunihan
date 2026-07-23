@@ -1,4 +1,3 @@
-import pyunihan.parsers
 import bisect
 import re
 import argparse
