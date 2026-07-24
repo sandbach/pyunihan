@@ -2,6 +2,17 @@
 
 Much of the logic of this program consists of small parser functions, each of which takes an entry in the Unihan database and return a list of `Insertion`s. My guiding light in writing the function for each Unihan property is [Unicode® Standard Annex #38](https://www.unicode.org/reports/tr38/index.html) (SA38). The sections below offer further details in cases where the behaviour of the parser functions may not be obvious.
 
+## IRG sources
+
+## `kCNS19{86,92}`
+
+[Chinese Standard Interchange Code (CSIC) - Set 1](https://itscj.ipsj.or.jp/ir/171.pdf)
+
+## `kMainlandTelegraph`
+
+I gather from the [Chinese commercial/telegraph code lookup](http://www.njstar.com/tools/telecode/) tool linked from the Japanese Wikipedia page for Chinese telegraph codes ([<span lang="ja-JP">電碼</span>](https://ja.wikipedia.org/wiki/%E9%9B%BB%E7%A2%BC) that leading zeros in codes are meaningful. For this reason, `kMainlandTelegraph` values are stored as `text`, rather than `integer`.
+)
+
 ## `kSMSZD2003Readings`
 
 Each entry for this property in the Unihan database comprises one or more space-separated combinations of Mandarin and Cantonese readings for the ideograph in question. Each combination contains one or more Mandarin readings and one or more Cantonese readings, where the dialects are separated by the character '<span lang="zh-Hant-HK">粵</span>', and readings within a dialect are separated by commas.
