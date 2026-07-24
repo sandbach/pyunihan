@@ -134,11 +134,46 @@ properties = {
         ],
         parsers.kFourCornerCode_parser,
     ),
-    "kGB0": Basic(),
-    "kGB1": Basic(),
-    "kGB3": Basic(),
-    "kGB5": Basic(),
-    "kGB8": Basic(),
+    "kGB0": Complex(
+        [
+            Column("code", "integer", primary_key_component=True),
+            Column("row", "integer"),
+            Column("cell", "integer"),
+        ],
+        parsers.row_cell_parser,
+    ),
+    "kGB1": Complex(
+        [
+            Column("code", "integer", primary_key_component=True),
+            Column("row", "integer"),
+            Column("cell", "integer"),
+        ],
+        parsers.row_cell_parser,
+    ),
+    "kGB3": Complex(
+        [
+            Column("code", "integer", primary_key_component=True),
+            Column("row", "integer"),
+            Column("cell", "integer"),
+        ],
+        parsers.row_cell_parser,
+    ),
+    "kGB5": Complex(
+        [
+            Column("code", "integer", primary_key_component=True),
+            Column("row", "integer"),
+            Column("cell", "integer"),
+        ],
+        parsers.row_cell_parser,
+    ),
+    "kGB8": Complex(
+        [
+            Column("code", "integer", primary_key_component=True),
+            Column("row", "integer"),
+            Column("cell", "integer"),
+        ],
+        parsers.row_cell_parser,
+    ),
     "kGradeLevel": Numeric(),
     "kGSR": Complex(
         [
