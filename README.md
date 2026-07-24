@@ -25,4 +25,4 @@ You can install this package with `pip` or [`uv`](https://docs.astral.sh/uv/). U
 
 Use the shell command `unihan`.
 
-By default, pyunihan stores all its files at [`$XDG_DATA_HOME`](https://specifications.freedesktop.org/basedir/latest/)`/pyunihan`. You can select different directories with arguments to `unihan`. Run `unihan --help` to see the available options.
+By default, pyunihan stores all its files at [`$XDG_DATA_HOME`](https://specifications.freedesktop.org/basedir/latest/)`/pyunihan`. You can select different directories for `Unihan.zip`, the extracted files, etc., with arguments to `unihan`. Run `unihan --help` to see the available options.
