@@ -68,6 +68,23 @@ def kCNS_parser(entry):
     return [Insertion(entry.table_name, values)]
 
 
+def kCowles_parser(entry):
+    parts = entry.value.split(" ")
+    insertions = []
+    for part in parts:
+        int_and_fractional = part.split(".")
+        if len(int_and_fractional) == 1:
+            values = [entry.code, int(int_and_fractional[0]), 0]
+        else:
+            values = [
+                entry.code,
+                int(int_and_fractional[0]),
+                int(int_and_fractional[1]),
+            ]
+        insertions.append(Insertion(entry.table_name, values))
+    return insertions
+
+
 def kAlternateTotalStrokes_parser(entry):
     if entry.value == "-":
         values = [entry.code, None, None]

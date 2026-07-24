@@ -73,7 +73,14 @@ properties = {
         ],
         parsers.variant_parser,
     ),
-    "kCowles": Basic(),
+    "kCowles": Complex(
+        [
+            Column("code", "integer", primary_key_component=True),
+            Column("ideographIndex", "integer", primary_key_component=True),
+            Column("fractionalIndex", "integer", primary_key_component=True),
+        ],
+        parsers.kCowles_parser,
+    ),
     "kDaeJaweon": Complex(
         [
             Column("code", "integer", primary_key_component=True),
@@ -84,7 +91,13 @@ properties = {
         parsers.kDaeJaweon_parser,
     ),
     "kDefinition": Basic(),
-    "kEACC": Basic(),
+    "kEACC": Complex(
+        [
+            Column("code", "integer", primary_key_component=True),
+            Column("codePoint", "integer", primary_key_component=True),
+        ],
+        parsers.hexadecimal_parser,
+    ),
     "kFanqie": Complex(
         [
             Column("code", "integer", primary_key_component=True),
