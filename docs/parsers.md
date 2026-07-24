@@ -1,17 +1,24 @@
 # Parser functions
 
-Much of the logic of this program consists of small parser functions, each of which takes an entry in the Unihan database and return a list of `Insertion`s. My guiding light in writing the function for each Unihan property is [Unicode® Standard Annex #38](https://www.unicode.org/reports/tr38/index.html) (SA38). The sections below offer further details in cases where the behaviour of the parser functions may not be obvious.
+Much of the logic of this program consists of small parser functions, each of which takes an entry in the Unihan database and return a list of `Insertion`s. My guiding light in writing the parser for each Unihan property is [Unicode® Standard Annex #38](https://www.unicode.org/reports/tr38/index.html) (SA38). The sections below offer further details in cases where the behaviour of the parser functions may not be obvious.
 
 ## IRG sources
 
+I follow [libUnihan](https://libunihan.sourceforge.net/) in inserting all the IRG source properties (`kIRG_GSource`, etc.) into a single `IRG_SourceMappingTable`.
+
 ## `kCNS19{86,92}`
 
-[Chinese Standard Interchange Code (CSIC) - Set 1](https://itscj.ipsj.or.jp/ir/171.pdf)
+SA38 does not fully specify the properties `kCNS1986` and `kCNS1992`. Values consist of (1) a hexadecimal digit indicating the character set, (2) a dash, (3) two hexadecimal digits to indicate the row number, and (4) two hexadecimal digits for the column number. Compare [Chinese Standard Interchange Code (CSIC) - Set 1](https://itscj.ipsj.or.jp/ir/171.pdf).
 
 ## `kMainlandTelegraph`
 
 I gather from the [Chinese commercial/telegraph code lookup](http://www.njstar.com/tools/telecode/) tool linked from the Japanese Wikipedia page for Chinese telegraph codes ([<span lang="ja-JP">電碼</span>](https://ja.wikipedia.org/wiki/%E9%9B%BB%E7%A2%BC)) that leading zeros in codes are meaningful. For this reason, `kMainlandTelegraph` values are stored as `text`, rather than `integer`.
 
+## `kMandarin`
+
+## `kSemanticVariant`
+
+At the moment, T and Z are the only letters that occur in the last part of the string. B, F, and J never appear.
 
 ## `kSMSZD2003Readings`
 
@@ -139,6 +146,10 @@ Results:
 
 ## `kStrange`
 
+Most of the categories under the `kStrange` property (explained in detail in [Unicode Technical Note #43](https://www.unicode.org/notes/tn43/tn43-4.pdf)) include an optional reference code. The exception is category S (stroke-heavy), which includes the number of strokes. To keep the data in each table as homogeneous as possible, values for category S are not added to `kStrangeTable`, but to the separate `kStrange_strokesTable`.
+
 ## `kXerox`
 
-https://files.interlisp.org/medley/unicode/xerox/Xerox%20Character%20Code%20Standard%20Version%202.0%201990.pdf
+SA38 neglects to mention that the three-digit codes on either side of the colon in `kXerox` values are octal. I choose to store them as integers; storage as strings would also be acceptable, but naive interpretation of the codes in base 10 would result in the storage of incorrect values. See the [Xerox Character Code Standard](https://files.interlisp.org/medley/unicode/xerox/Xerox%20Character%20Code%20Standard%20Version%202.0%201990.pdf) for more information.
+
+
