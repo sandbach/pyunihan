@@ -29,5 +29,5 @@ def hanyu_da_zidian_values(string):
 def find_unihan_files(dir_path):
     files = os.listdir(dir_path)
     reg = re.compile(r"Unihan.*\.txt")
-    filtered = filter(lambda f: reg.match(f), files)
+    filtered = filter(reg.match, files)
     return list(filtered)
