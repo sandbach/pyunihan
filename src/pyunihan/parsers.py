@@ -20,6 +20,11 @@ def variant_parser(entry):
     ]
 
 
+def simple_string_splitter(entry):
+    values = entry.value.split(" ")
+    return [Insertion(entry.table_name, [entry.code, value]) for value in values]
+
+
 def string_splitter(entry):
     values = entry.value.split(" ")
     return [

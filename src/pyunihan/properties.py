@@ -429,7 +429,13 @@ properties = {
         ],
         parsers.integer_splitter,
     ),
-    "kOtherNumeric": Numeric(),
+    "kOtherNumeric": Complex(
+        [
+            Column("code", "integer", primary_key_component=True),
+            Column("numericValue", "integer", primary_key_component=True),
+        ],
+        parsers.integer_splitter,
+    ),
     "kPhonetic": Complex(
         [
             Column("code", "integer", primary_key_component=True),
@@ -449,7 +455,14 @@ properties = {
         ],
         parsers.kPrimaryNumeric_parser,
     ),
-    "kPseudoGB1": Numeric(),
+    "kPseudoGB1": Complex(
+        [
+            Column("code", "integer", primary_key_component=True),
+            Column("row", "integer"),
+            Column("cell", "integer"),
+        ],
+        parsers.row_cell_parser,
+    ),
     "kRSAdobe_Japan1_6": Complex(
         [
             Column("code", "integer", primary_key_component=True),
@@ -551,9 +564,9 @@ properties = {
     "kTaiwanTelegraph": Complex(
         [
             Column("code", "integer", primary_key_component=True),
-            Column("telegraphCode", "integer", primary_key_component=True),
+            Column("telegraphCode", "text", primary_key_component=True),
         ],
-        parsers.integer_splitter,
+        parsers.simple_string_splitter,
     ),
     "kTang": Complex(
         [
@@ -600,14 +613,6 @@ properties = {
         parsers.string_splitter,
     ),
     "kVietnameseNumeric": Numeric(),
-    "kZhuangNumeric": Numeric(),
-    "kZVariant": Complex(
-        [
-            Column("code", "integer", primary_key_component=True),
-            Column("variantCode", "integer", primary_key_component=True),
-        ],
-        parsers.variant_parser,
-    ),
     "kXerox": Complex(
         [
             Column("code", "integer", primary_key_component=True),
@@ -635,6 +640,14 @@ properties = {
             Column("standardZhuang", "integer"),
         ],
         parsers.kZhuang_parser,
+    ),
+    "kZhuangNumeric": Numeric(),
+    "kZVariant": Complex(
+        [
+            Column("code", "integer", primary_key_component=True),
+            Column("variantCode", "integer", primary_key_component=True),
+        ],
+        parsers.variant_parser,
     ),
     "kStrange_strokes": Numeric(),
     "utf8": Basic(),
