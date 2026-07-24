@@ -10,8 +10,8 @@ Much of the logic of this program consists of small parser functions, each of wh
 
 ## `kMainlandTelegraph`
 
-I gather from the [Chinese commercial/telegraph code lookup](http://www.njstar.com/tools/telecode/) tool linked from the Japanese Wikipedia page for Chinese telegraph codes ([<span lang="ja-JP">電碼</span>](https://ja.wikipedia.org/wiki/%E9%9B%BB%E7%A2%BC) that leading zeros in codes are meaningful. For this reason, `kMainlandTelegraph` values are stored as `text`, rather than `integer`.
-)
+I gather from the [Chinese commercial/telegraph code lookup](http://www.njstar.com/tools/telecode/) tool linked from the Japanese Wikipedia page for Chinese telegraph codes ([<span lang="ja-JP">電碼</span>](https://ja.wikipedia.org/wiki/%E9%9B%BB%E7%A2%BC)) that leading zeros in codes are meaningful. For this reason, `kMainlandTelegraph` values are stored as `text`, rather than `integer`.
+
 
 ## `kSMSZD2003Readings`
 
