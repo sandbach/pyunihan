@@ -16,6 +16,8 @@ I gather from the [Chinese commercial/telegraph code lookup](http://www.njstar.c
 
 ## `kMandarin`
 
+SA38 states that "[w]hen there are two values, then the first is preferred for zh-Hans (CN) and the second is preferred for zh-Hant (TW). When there is only one value, it is appropriate for both". The program represents this with a `languageTag` column containing a [BCP 47 language tag](https://developer.mozilla.org/en-US/docs/Glossary/BCP_47_language_tag): `"zh-Hans-CN"`, `"zh-Hant-TW"`, and `"zh"` for readings that are appropriate for both cases.
+
 ## `kSemanticVariant`
 
 At the moment, T and Z are the only letters that occur in the last part of the string. B, F, and J never appear.
