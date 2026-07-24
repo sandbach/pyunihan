@@ -40,10 +40,10 @@ class Database:
             return Basic()
 
     def create_table_statement(self, table_name):
-        # table_name = self.table_name
         reg = re.compile("(.*)Table")
         column_name = reg.match(table_name).group(1)
-        report_unknown = table_name != "utf8Table"
+        # report_unknown = table_name != "utf8Table"
+        report_unknown = True
         category = self.property_category(column_name, report_unknown)
         column_type = "integer" if isinstance(category, Numeric) else "text"
         statement = (
