@@ -355,6 +355,20 @@ def kMandarin_parser(entry):
     return insertions
 
 
+def kMeyerWempe_parser(entry):
+    parts = entry.value.split(" ")
+    reg = re.compile(r"(\d+)([a-t])?(\*)?")
+    insertions = []
+    for part in parts:
+        match = reg.match(part)
+        ideograph_index = int(match.group(1))
+        subsidiary_entry = match.group(2) if match.group(2) else None
+        in_main_body = 0 if match.group(3) else 1
+        values = [entry.code, ideograph_index, subsidiary_entry, in_main_body]
+        insertions.append(Insertion(entry.table_name, values))
+    return insertions
+
+
 def kMojiJoho_parser(entry):
     parts = entry.value.split(" ")
     reg = re.compile(r"(MJ\d+)(:(.*))?")

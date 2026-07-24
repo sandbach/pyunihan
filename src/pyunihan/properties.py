@@ -391,7 +391,17 @@ properties = {
         parsers.kMandarin_parser,
     ),
     "kMatthews": Basic(),
-    "kMeyerWempe": Basic(),
+    "kMeyerWempe": Complex(
+        [
+            Column("code", "integer", primary_key_component=True),
+            Column("ideographIndex", "integer", primary_key_component=True),
+            Column(
+                "subsidiaryEntry", "text", primary_key_component=True, nullable=True
+            ),
+            Column("inMainBody", "integer"),
+        ],
+        parsers.kMeyerWempe_parser,
+    ),
     "kMojiJoho": Complex(
         [
             Column("code", "integer", primary_key_component=True),
